@@ -5,13 +5,18 @@
         
         <div class="btn btn-primary btn-lg learn-more">Learn More</div>
 
-        <%= render :partial => 'form' %>
+        <%= render :partial => 'login' %>
+        <%= render :partial => 'signup' %>
     </div>
 </div>
 
 <script>
-    $(".learn-more").click(function(){
-        $(this).hide();
-        $(".form-signin").fadeIn();
-    });
+ $("#signup").click(function(){
+    $(".form-signin").hide();
+    $(".form-signup").fadeIn();
+  });
+  $(".learn-more").click(function(){
+    $(".form-signup").hide();
+    $(".form-signin").fadeIn();
+  });
 </script>

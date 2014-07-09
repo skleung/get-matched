@@ -1,0 +1,7 @@
+<%= form_tag(login_path, method: "post", :html =>{:style=>"display:none;"}) do %>
+
+  <%= label :username, :username %>
+  <%= text_field :username, :username %>
+
+  <%= submit_tag "Sign in", class: "btn btn-large btn-primary" %>
+<% end %>
