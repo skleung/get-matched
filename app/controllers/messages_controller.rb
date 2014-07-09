@@ -2,7 +2,6 @@ class MessagesController < ApplicationController
   def index
     @user = User.where(id: session['current_userid']).first
     @messages = Message.order("created_at desc")
-    byebug
     respond_to do |format|
       format.html
       format.json { render json: @messages }

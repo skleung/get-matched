@@ -5,10 +5,10 @@
 <table class="table">
   <tr>
     <td>
-      <%= link_to message.sender_id, message_path(message) %>
+      <%= link_to User.where(id: message.sender_id).first.username, message_path(message) %>
     </td>
     <td>
-      <%= message.sender %>
+      <%= User.where(id: message.receiver_id).first.username %>
     </td>
     <td>
       <%= message.created_at %>
