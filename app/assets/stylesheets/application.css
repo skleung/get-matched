@@ -13,3 +13,18 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  padding-top: 60px;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+.form-signin{
+	width: 30%;
+	margin: auto;
+	text-align: center;
+}

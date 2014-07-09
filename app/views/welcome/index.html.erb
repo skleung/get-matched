@@ -1,43 +1,19 @@
-<<<<<<< HEAD
-<div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a href="../" class="navbar-brand">Get Matched</a>
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            
-            <li>
-            	<%=link_to "About", "welcome#about" %>
-            </li>
-            <li>
-            	<%=link_to "Team", "welcome#team" %>
-            </li>
-            <li>
-            	<%=link_to "Contact", "welcome#contact" %>
-            </li>
-            
-          </ul>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Sign In", "#"%></li>
-            <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
-          </ul>
-
-        </div>
-      </div>
-    </div>
 
 <div class="container">
-	<div class="page-header">
-		<h1>Get Matched</h1>
+    <div class="page-header">
+        <h1>Get Matched</h1>
+        <p class="lead">A Locu/tinder mash-up for small business owners</p>
+        
+        <div class="btn btn-primary btn-lg learn-more">Learn More</div>
 
-
-		<p> Put signin stuff here</p>
-	</div>
+        <%= render :partial => 'form' %>
+    </div>
 </div>
+
+<script>
+    $(".learn-more").click(function(){
+        $(this).hide();
+        $(".form-signin").fadeIn();
+    });
+</script>
