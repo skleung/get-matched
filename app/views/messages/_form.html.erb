@@ -1,9 +1,15 @@
 <%= form_for @message do |form| %>
-  <%= form.label :recepient %>
-  <%= form.text_field :recepient %>
-  <%= form.label :subject %>
-  <%= form.text_field :subject %>
-  <%= form.label :body %>
-  <%= form.text_area :body %><br>
+  <% if @message.errors.any? %>
+    <div class = "alert alert-danger" role="alert">
+      <div><b>Error(s)</b></div>
+      <% @message.errors.full_messages.each do |msg| %>
+        <li><%=msg%></li>
+      <% end %> 
+    </div> 
+  <% end %>
+  <%= form.label :receiver_id %>
+  <%= form.text_field :receiver_id %>
+  <%= form.label :content %>
+  <%= form.text_area :content %><br>
   <%= form.submit 'Send message' %>
 <% end %>

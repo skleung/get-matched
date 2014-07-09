@@ -1,6 +1,6 @@
-class MessagingController < ApplicationController
+class MessagesController < ApplicationController
   def index
-    @user = current_user
+    @user = User.where(username: 'sophia').first_or_create
     @messages = Message.order("created_at desc")
     respond_to do |format|
       format.html
@@ -10,7 +10,7 @@ class MessagingController < ApplicationController
 
   def show 
     @message = Message.find(params[:id])
-    @user = current_user
+    @user = User.where(username: 'sophia').first_or_create
     if (@user.username == @message.sender) || (@user.username == @message.recepient)
     else
       respond_to do |format|
@@ -25,16 +25,17 @@ class MessagingController < ApplicationController
   end
 
   def create
-    @message = Message.new(params[:message])
-    @message.sender = current_user.username
+    @message = Message.create(params.require(:message).permit(:receiver_id, :content))
+    @message.sender_id = session['current_user_id']
     @message.save
+    byebug
     
     respond_to do |format|
       if @message.save
         format.html { redirect_to :action => :index, notice: 'Message has been sent.' }
         format.json { render json: @messages }
       else
-        format.html { redirect_to :action => :new, notice: 'Error: Please try again.' }
+        format.html { redirect_to new_message_path(@message) }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end

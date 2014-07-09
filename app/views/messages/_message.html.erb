@@ -1,11 +1,11 @@
 <link href="/assets/messages.css" rel="stylesheet">
 
 <link href="/assets/bootstrap.css" rel="stylesheet">
-<% if message.recepient == @user.username %>
+<% if message.receiver_id == @user.username %>
 <table class="table">
   <tr>
     <td>
-      <%= link_to message.subject, message_path(message) %>
+      <%= link_to message.sender_id, message_path(message) %>
     </td>
     <td>
       <%= message.sender %>

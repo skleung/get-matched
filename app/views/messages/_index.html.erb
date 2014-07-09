@@ -1,6 +1,48 @@
-<link href="/assets/messages.css" rel="stylesheet">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Get Matched</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">Get Matched</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            
+            <li>
+              <%=link_to "About", "welcome#about" %>
+            </li>
+            <li>
+              <%=link_to "Team", "welcome#team" %>
+            </li>
+            <li>
+              <%=link_to "Contact", "welcome#contact" %>
+            </li>
+            
+          </ul>
 
-  <div id="inboxMessages">
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Log In", "#", :id=>"login"%></li>
+            <li><%= link_to "Sign Up", "#", :id=>"signup"%></li>
+          </ul>
+        </div>
+    </div>
+</div>
+<%= link_to 'Inbox', messages_path  %> |
+  <%= link_to 'Send message', new_message_path  %> |
+  <div class="container">
+  <div class="row" id="inboxMessages">
     <h2>Inbox</h2>
     <table class="table">
       <tr>
@@ -14,12 +56,13 @@
       <%= render @messages %> 
     </div>
   </div>
+</div>
 
-  <div id="sentMessages">
+<div class="container">
+  <div class="row" id="sentMessages">
     <h2>Sent Messages</h2>
     <table class="table">
       <tr>
-        <td>Subject</td>
         <td>To</td>
         <td>Date</td>
         <td></td>
@@ -29,3 +72,10 @@
       <%= render 'messages/sent' %> 
     </div>
   </div>
+</div>
+
+<%= bootstrap_flash %>
+<%= yield %>
+
+</body>
+</html>
