@@ -1,5 +1,35 @@
 <h1>Search for Matches</h1>
 
-<div>
-  <%= @businesses %>
+<div class="container">
+  <div class="row">
+
+    <div id="matches-carousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+
+        <% @businesses.each_with_index do |business, index| %>
+        <% if index == 0 %>
+        <div class="item active">
+        <% else %>
+        <div class="item">
+        <% end %>
+          <%= image_tag "http://placekitten.com/g/1500/600" %>
+          <div class="carousel-caption">
+            <h4><%= business["name"] %></h4>
+          </div>
+        </div>
+        <% end %>
+      </div>
+
+      <!-- Controls -->
+      <a class="left carousel-control" href="#matches-carousel" role="button" data-slide="prev">
+        <
+        <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
+      </a>
+      <a class="right carousel-control" href="#matches-carousel" role="button" data-slide="next">
+        >
+        <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
+      </a>
+    </div>
+
+  </div>
 </div>
