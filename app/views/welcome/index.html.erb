@@ -1,22 +1,42 @@
 <div class="container">
-    <div class="page-header">
+    <div class="page-header" >
+      <div class="row" id="welcome">
         <h1>Get Matched</h1>
         <p class="lead">A Locu/tinder mash-up for small business owners</p>
-        
-        <div class="btn btn-primary btn-lg learn-more">Learn More</div>
+      </div>
+    
 
-        <%= render :partial => 'login' %>
-        <%= render :partial => 'signup' %>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="well bs-component" id="login_wrapper">
+            <%= render :partial => 'login' %>
+          </div>
+          <div class="well bs-component" id="signup_wrapper">
+            <%= render :partial => 'signup' %>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
     </div>
 </div>
 
 <script>
- $("#signup").click(function(){
-    $(".form-signin").hide();
-    $(".form-signup").fadeIn();
+  $(document).ready(function(){
+    $("#login_wrapper").hide();
+    $("#signup_wrapper").hide();
+    console.log("forms hidden");
   });
-  $(".learn-more").click(function(){
-    $(".form-signup").hide();
-    $(".form-signin").fadeIn();
+  $("#signup").click(function(e){
+    e.preventDefault();
+    $("#welcome").hide();
+    $("#login_wrapper").hide();
+    $("#signup_wrapper").fadeIn();
+  });
+  $("#login").click(function(e){
+    e.preventDefault();
+    $("#welcome").hide();
+    $("#signup_wrapper").hide();
+    $("#login_wrapper").fadeIn();
   });
 </script>
