@@ -1,10 +1,10 @@
 <%= form_tag(signup_path, :class=>"form-horizontal", :id=>"signup_form") do %>
 
-    <%= label :username, :username%>
-    <%= text_field :username, :username, :class=>"form-control"%>
+    <%= label :user, :username%>
+    <%= text_field :user, :username, :class=>"form-control"%>
 
-    <%= label :locu_str_id, :locu_str_id%>
-    <%= text_field :locu_str_id, :locu_str_id , :class=>"form-control"%>
+    <%= label :user, :locu_str_id%>
+    <%= text_field :user, :locu_str_id , :class=>"form-control"%>
     
     <%= submit_tag "Sign Up", class: "btn btn-large btn-primary" %>
 <% end %>

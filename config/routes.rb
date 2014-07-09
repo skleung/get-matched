@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post 'welcome/login' => 'user#login', as: :login
   post 'welcome/signup' => 'user#signup', as: :signup
 
-  get 'search' => 'search#index'
+  get 'search' => 'search#index', as: :search
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
