@@ -26,7 +26,7 @@ module ApplicationHelper
 
     data = {
       api_key: api_key,
-      fields: [ "name", "location", "contact" ],
+      fields: [ "name", "location", "contact", "categories" ],
       venue_queries: [
         {
           location: {
@@ -37,6 +37,10 @@ module ApplicationHelper
         }
       ]
     }
+
+    if category
+      data[:venue_queries][:category] = 'omg how do we do this'
+    end
 
     request.body = data.to_json
     response = http.request(request)
