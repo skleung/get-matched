@@ -4,19 +4,17 @@
 <h3>Message</h3>
 <table class = "table">
   <tr>
-    <td>Subject</td> 
     <td>From</td>
     <td>To</td>
     <td>Date</td>
   </tr>
   <tr>
-    <td><strong><%= @message.subject%></strong></td>
-    <td><strong><%= @message.sender %></strong></td>
-    <td><strong><%= @message.recepient %></strong></td>
+    <td><strong><%= User.where(id: @message.sender_id).first.username %></strong></td>
+    <td><strong><%= User.where(id: @message.receiver_id).first.username %></strong></td>
     <td><strong><%= @message.created_at %></strong></td>
   </tr>
 </table>
 
-<p><%= @message.body %></p>
+<p><%= @message.content %></p>
 <%= link_to 'Back', messages_path %>
 </div>

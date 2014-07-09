@@ -8,6 +8,7 @@
 #  receiver_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  read        :boolean
 #
 
 require 'test_helper'

@@ -7,6 +7,7 @@ class UserController < ApplicationController
     end
     user = User.where(params[:user]).create
     session['current_locu_id'] = user.locu_str_id
+    session['current_userid'] = user.id
     redirect_to search_path, notice: "Signed up with username #{user.username}, locu id #{user.locu_str_id}"
   end
 
@@ -16,6 +17,7 @@ class UserController < ApplicationController
     if user_query.count != 0
       user = user_query.first
       session['current_locu_id'] = user.locu_str_id
+      session['current_userid'] = user.id
       redirect_to search_path, notice: "logged in with locu id #{user.locu_str_id}"
     else
       redirect_to root_url, alert: "Couldn't find username #{username}!"
