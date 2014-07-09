@@ -1,0 +1,9 @@
+<%= form_tag search_sendMessage_path, html: {class: "form-horizontal"} do %>
+
+  <%= text_area_tag "content", nil, :placeholder=>"Enter message", :cols=>5, :class=>"form-control"%>
+
+  <%= hidden_field_tag "receiver_id" %>
+
+  <%= submit_tag "Chat", class: "btn btn-large btn-primary" %>
+
+<% end %>

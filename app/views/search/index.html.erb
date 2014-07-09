@@ -1,12 +1,12 @@
-<h1>Search for Matches</h1>
 
 <div class="container">
   <div class="row">
+    <h1>Search for Matches</h1>
 
     <div id="matches-carousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
 
-        <% @businesses.each_with_index do |business, index| %>
+        <% $businesses.each_with_index do |business, index| %>
         <% if index == 0 %>
         <div class="item active">
         <% else %>
@@ -14,7 +14,7 @@
         <% end %>
           <%= image_tag "http://placekitten.com/g/1500/600" %>
           <div class="carousel-caption">
-            <h4><%= business["name"] %></h4>
+            <h3><%= business["name"] %></h3>
           </div>
         </div>
         <% end %>
@@ -30,6 +30,8 @@
         <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
       </a>
     </div>
+
+    <%= render :partial => 'contact' %> 
 
   </div>
 </div>

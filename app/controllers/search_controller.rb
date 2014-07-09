@@ -1,6 +1,8 @@
 class SearchController < ApplicationController
   helper_method :searchForNearbyBusinesses
 
+  $businesses = []
+
   def rankBusinesses(businesses)
     # TODO: actually implement this
     return businesses
@@ -21,12 +23,24 @@ class SearchController < ApplicationController
     ]
 
     results = searchLocu(fields, queries)
-    return results["venues"]
+    return rankBusinesses(results["venues"])
+  end
+
+  def sendMessage
+    content = params[:content]
+    sender_id = session["current_user_id"]
+    receiver_id = $businesses[params[:receiver_id].to_i]["locu_id"]
+    p receiver_id
+    # TODO: Save message!
+    #message = Message.new(content=content, sender_id=sender_id, receiver_id=receiver_id)
+    #message.save!
+    # TODO: redirect to matches
+    redirect_to search_path
   end
 
   def index
-    # TODO: use User.locu_str_id
-    locu_id = '03cdacebde7c11285270'
-    @businesses = searchForNearbyBusinesses(locu_id)
+    locu_id = session["current_locu_id"]
+    $businesses = searchForNearbyBusinesses(locu_id)
+    @message = Message.new
   end
 end
