@@ -1,7 +1,14 @@
 source 'https://rubygems.org'
 
 
-#gem 'annotate'
+gem 'annotate'
+gem "twitter-bootstrap-rails"
+
+group :test, :development do
+  gem 'byebug'
+  gem 'sqlite3'
+end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
 # Use sqlite3 as the database for Active Record
