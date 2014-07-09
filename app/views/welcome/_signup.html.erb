@@ -1,0 +1,10 @@
+<%= form_for(@user, :html =>{:style=>"display:none;"}) do |f| %>
+
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+
+    <%= f.label :locu_str_id %>
+    <%= f.text_field :locu_str_id %>
+    
+    <%= f.submit "Sign Up", class: "btn btn-large btn-primary" %>
+<% end %>
