@@ -10,5 +10,5 @@
 #
 
 class User < ActiveRecord::Base
-	has_and_belongs_many :matches
+	has_and_belongs_to_many :matches
 end

@@ -1,4 +1,11 @@
 module ApplicationHelper
+  def bootstrap_class_for(type)
+    if type == 'alert'
+      return 'alert-danger'
+    end
+    'alert-success'
+  end
+
   def searchForNearbyBuisness(locu_id, distance = 5000, category = nil)
     api_key = "fb7523f94c32524215421f2a00ded5e01727b303"
     url = 'https://api.locu.com'
