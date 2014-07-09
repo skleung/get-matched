@@ -1,5 +1,5 @@
 <% @messages.each do |m| %>
-<% if m.sender_id == @user.username %>
+<% if m.sender_id == @user.id%>
 <table class="table">
   <tr>
     <td>
@@ -8,7 +8,7 @@
         [read by user]
       <% end %>
     </td>
-    <td><%= m.receiver_id %></td>
+    <td><%= User.where(id: m.receiver_id).first.username %></td>
     <td><%= m.created_at %></td>
     <td><%= link_to 'Delete Message', m, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

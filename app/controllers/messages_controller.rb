@@ -1,7 +1,8 @@
 class MessagesController < ApplicationController
   def index
-    @user = User.where(username: 'sophia').first_or_create
+    @user = User.where(id: session['current_userid']).first
     @messages = Message.order("created_at desc")
+    byebug
     respond_to do |format|
       format.html
       format.json { render json: @messages }
@@ -10,8 +11,8 @@ class MessagesController < ApplicationController
 
   def show 
     @message = Message.find(params[:id])
-    @user = User.where(username: 'sophia').first_or_create
-    if (@user.username == @message.sender) || (@user.username == @message.recepient)
+    @user = User.where(id: session['current_userid']).first
+    if (@user.id == @message.sender_id) || (@user.id == @message.receiver_id)
     else
       respond_to do |format|
         format.html { redirect_to :action => :index, notice: 'No message found' }
@@ -26,9 +27,8 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.create(params.require(:message).permit(:receiver_id, :content))
-    @message.sender_id = session['current_user_id']
+    @message.sender_id = session['current_userid']
     @message.save
-    byebug
     
     respond_to do |format|
       if @message.save

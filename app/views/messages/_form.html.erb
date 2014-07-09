@@ -8,7 +8,10 @@
     </div> 
   <% end %>
   <%= form.label :receiver_id %>
-  <%= form.text_field :receiver_id %>
+  <span style="color:black">
+    <%= form.collection_select(:receiver_id, User.all, :id, :username) %>
+  </span>
+  <!--<%= form.text_field :receiver_id %>-->
   <%= form.label :content %>
   <%= form.text_area :content %><br>
   <%= form.submit 'Send message' %>
