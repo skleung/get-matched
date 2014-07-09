@@ -1,11 +1,23 @@
 class ApplicationController < ActionController::Base
 # Prevent CSRF attacks by raising an exception.
 # For APIs, you may want to use :null_session instead.
-protect_from_forgery with: :exception
+  protect_from_forgery with: :exception
 
-class LocuAPIError < RuntimeError
-end
+  helper_method :logged_in?
 
+  # before_filter :require_login, except: ['welcome', 'user']
+
+  # def require_login
+  #   byebug
+  #   unless session["current_locu_id"]
+  #     redirect_to root_url, alert: "you need more swag"
+  #   end
+  # end
+
+  class LocuAPIError < RuntimeError
+  end
+
+  require 'net/http'
   def searchLocu(fields, queries)
     api_key = "fb7523f94c32524215421f2a00ded5e01727b303"
     url = 'https://api.locu.com'
@@ -30,6 +42,10 @@ end
     end
 
     return results
+  end
+
+  def logged_in?
+    return session["current_locu_id"]
   end
 
   def searchForBusiness(locu_id)

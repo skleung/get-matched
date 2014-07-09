@@ -35,8 +35,14 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
+
+          <% if logged_in?%>
+            <li><%= link_to 'Locu id: ' + session['current_locu_id'], "#" %></li>
+            <li><%= link_to "Log out", "#", :id=>"login"%></li>
+          <% else %>
             <li><%= link_to "Log In", "#", :id=>"login"%></li>
             <li><%= link_to "Sign Up", "#", :id=>"signup"%></li>
+          <% end %>
           </ul>
         </div>
     </div>
