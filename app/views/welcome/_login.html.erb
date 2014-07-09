@@ -1,7 +1,7 @@
 <%= form_tag(login_path, method: "post", :class=>"form-horizontal", :id=>"login_form") do %>
 
-  <%= label :username, :username%>
-  <%= text_field :username, :username, :class=>"form-control"%>
+  <%= label :user, :username%>
+  <%= text_field :user, :username, :class=>"form-control"%>
 
   <%= submit_tag "Sign in", class: "btn btn-large btn-primary" %>
 
