@@ -1,5 +1,6 @@
 class UserController < ApplicationController
   def create
+    byebug
     User.where(username: params[:user][:username], locu_str_id: params[:user][:locu_str_id]).first_or_create
   end
 

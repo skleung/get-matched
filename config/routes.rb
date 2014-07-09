@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :meals
   get 'welcome' => 'welcome#index'
   post 'welcome' => 'user#login', as: :login
+  post 'welcome' => 'user#signup', as: :signup
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

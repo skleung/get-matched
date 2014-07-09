@@ -1,10 +1,10 @@
-<%= form_for(@user, :html =>{:style=>"display:none;"}) do |f| %>
+<%= form_tag(signup_path, :html =>{:style=>"display:none;"}) do %>
 
-    <%= f.label :username %>
-    <%= f.text_field :username %>
+    <%= label :username, :username %>
+    <%= text_field :username, :username %>
 
-    <%= f.label :locu_str_id %>
-    <%= f.text_field :locu_str_id %>
+    <%= label :locu_str_id, :locu_str_id %>
+    <%= text_field :locu_str_id, :locu_str_id %>
     
-    <%= f.submit "Sign Up", class: "btn btn-large btn-primary" %>
+    <%= submit_tag "Sign Up", class: "btn btn-large btn-primary" %>
 <% end %>
