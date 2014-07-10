@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   def index
-    @user = User.where(id: session['current_userid']).first
+    @user = User.where(locu_str_id: session['current_locu_id']).first
     @messages = Message.order("created_at desc")
     respond_to do |format|
       format.html
@@ -10,8 +10,8 @@ class MessagesController < ApplicationController
 
   def show 
     @message = Message.find(params[:id])
-    @user = User.where(id: session['current_userid']).first
-    if (@user.id == @message.sender_id) || (@user.id == @message.receiver_id)
+    @user = User.where(locu_str_id: session['current_locu_id']).first
+    if (@user.locu_str_id == @message.sender_id) || (@user.locu_str_id == @message.receiver_id)
     else
       respond_to do |format|
         format.html { redirect_to :action => :index, notice: 'No message found' }
@@ -26,7 +26,7 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.create(params.require(:message).permit(:receiver_id, :content))
-    @message.sender_id = session['current_userid']
+    @message.sender_id = session['current_locu_id']
     @message.save
     
     respond_to do |format|

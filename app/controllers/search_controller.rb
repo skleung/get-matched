@@ -28,14 +28,11 @@ class SearchController < ApplicationController
 
   def sendMessage
     content = params[:content]
-    sender_id = session["current_user_id"]
+    sender_id = session["current_locu_id"]
     receiver_id = $businesses[params[:receiver_id].to_i]["locu_id"]
-    p receiver_id
-    # TODO: Save message!
-    #message = Message.new(content=content, sender_id=sender_id, receiver_id=receiver_id)
-    #message.save!
+    message = Message.create(content: content, sender_id: sender_id, receiver_id: receiver_id)
     # TODO: redirect to matches
-    redirect_to search_path
+    redirect_to messages_path
   end
 
   def index

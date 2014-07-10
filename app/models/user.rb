@@ -12,4 +12,14 @@
 class User < ActiveRecord::Base
 	has_and_belongs_to_many :matches
 
+  class << self
+    def get_name(locu_str_id)
+      if User.where(locu_str_id: locu_str_id).empty?
+        return locu_str_id
+      else
+        return User.where(locu_str_id: locu_str_id).first.username
+      end
+    end
+  end
+
 end

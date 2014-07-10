@@ -1,14 +1,13 @@
 <link href="/assets/messages.css" rel="stylesheet">
 
-<link href="/assets/bootstrap.css" rel="stylesheet">
-<% if message.receiver_id == @user.id %>
+<% if message.receiver_id == @user.locu_str_id %>
 <table class="table">
   <tr>
     <td>
-      <%= link_to User.where(id: message.sender_id).first.username, message_path(message) %>
+      <%= link_to User.get_name(message.sender_id), message_path(message) %>
     </td>
     <td>
-      <%= User.where(id: message.receiver_id).first.username %>
+      <%= User.get_name(message.receiver_id) %>
     </td>
     <td>
       <%= message.created_at %>

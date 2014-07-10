@@ -1,14 +1,16 @@
 <% @messages.each do |m| %>
-<% if m.sender_id == @user.id%>
+<% if m.sender_id == @user.locu_str_id %>
 <table class="table">
   <tr>
     <td>
-      <%= link_to m.sender_id, message_path(m) %>
+      <%= link_to User.get_name(m.sender_id), message_path(m) %>
       <% if m.read %>
         [read by user]
       <% end %>
     </td>
-    <td><%= User.where(id: m.receiver_id).first.username %></td>
+    <td>
+      <%= User.get_name(m.receiver_id) %>
+    </td>
     <td><%= m.created_at %></td>
     <td><%= link_to 'Delete Message', m, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
