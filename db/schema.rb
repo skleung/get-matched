@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(version: 20140710040221) do
     t.integer  "match_id"
   end
 
+  create_table "needs", force: true do |t|
+    t.string   "name"
+    t.string   "str_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "username"
     t.string   "locu_str_id"
