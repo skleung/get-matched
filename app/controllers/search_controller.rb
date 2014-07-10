@@ -46,15 +46,53 @@ class SearchController < ApplicationController
 
   def reject
     $candidates.shift
+    render :nothing => true
   end
 
   def accept
-    match = Match.new
-    match.sender_id = session["current_locu_id"]
-    match.receiver_id = $candidates[0]["locu_id"]
-    #match.accepted = false
+    candidate_id = $candidates[0]["locu_id"]
+    user_id = session["current_locu_id"]
+    selling = (params[:type] == 'customer')
+
+    matches = Match.where(sender_id: candidate_id, receiver_id: user_id)
     byebug
-    # TODO: redirect if match exists, otherwise make match
+    if matches.empty?
+      # Create a match if no match already exists
+      match = Match.new
+      match.sender_id = user_id
+      match.receiver_id = candidate_id
+      match.accepted = false
+      match.selling = selling
+      if !match.save
+        flash[:alert] = "Match cannot be made!"
+      else
+        flash[:success] = "Match made!"
+      end
+    elsif matches.first.selling != selling
+      # Otherwise, if a match exists, only accept it if
+      # I'm buying and she's selling, or I'm selling and she's buying
+      match = matches.first
+      match.accepted = true
+      match.save
+
+      # Autogenerate two messages
+      message = Message.new
+      message.sender_id = match.sender_id
+      message.receiver_id = match.receiver_id
+      message.content = "You've been matched!"
+      message.save
+
+      message = Message.new
+      message.sender_id = match.receiver_id
+      message.receiver_id = match.sender_id
+      message.content = "You've been matched!"
+      message.save
+
+      render :js => "window.location.pathname = '#{messages_path}'"        
+      return
+    end
+    $candidates.shift
+    render :nothing => true
   end
 
   def index

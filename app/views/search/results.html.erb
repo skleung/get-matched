@@ -25,14 +25,27 @@
 </div>
 
 <script>
+$(function() {
+
+  var accepted = false;
   $('#reject').click(function() {
+    accepted = false;
     $('#matches-carousel').carousel('next');
   });
   $('#accept').click(function() {
-    $.ajax({url: "accept", type: "POST"});
+    accepted = true;
+    $('#matches-carousel').carousel('next');
   });
 
   $('#matches-carousel').on('slid.bs.carousel', function() {
-    $.ajax({url: "reject", type: "POST"});
+    if (accepted) {
+      $.ajax({url: "accept",
+              data: {type: '<%= params[:type] %>'},
+              type: "POST"});
+    } else {
+      $.ajax({url: "reject", type: "POST"});
+    }
   });
+
+});
 </script>
