@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    return session["current_locu_id"] && User.where(locu_id: session["current_locu_id"])
+    return session["current_locu_id"] && User.where(locu_str_id: session["current_locu_id"]).any?
   end
 
   #size should be small, medium, large, xlarge
