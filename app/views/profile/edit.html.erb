@@ -1,13 +1,22 @@
 <%= render 'profile/profile' %>
 
+      <%= form_tag profile_submit_path do %>
       <div class="row">
-        <%= form_tag profile_submit_path do %>
         <div class="col-md-4">
           Categories To Choose (separated by commas):
         </div>
         <div class="col-md-6">
-        <input type="textarea" name="category_update" action="submit"
-               value="<%= User.get_categories(session['current_locu_id'], @business['categories']) %>"/>
+          <input type="textarea" name="category_update"
+                 value="<%= User.get_categories(session['current_locu_id'], @business['categories']) %>"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          My needs (separated by commas):
+        </div>
+        <div class="col-md-6">
+          <input type="textarea" name="needs_update"
+                 value="<%= User.get_needs(session['current_locu_id']) %>"/>
         </div>
       </div>
       <div class="row">

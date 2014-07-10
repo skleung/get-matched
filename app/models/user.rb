@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
         return categories.join(', ') 
       end
     end
+    def get_needs(locu_str_id)
+      user = User.where(locu_str_id: locu_str_id).first
+      return user.needs
+    end
   end
 
 end

@@ -5,12 +5,25 @@ class SearchController < ApplicationController
 
   def findBusinesses(candidates)
     my_id = session["current_locu_id"]
+    byebug
     candidates.each do |candidate|
+      candidate["confidence"] = 0.0
       if !Match.where(sender_id: candidate["locu_id"], receiver_id: my_id,
                       accepted: false, selling: true).empty?
         candidate["confidence"] = 1.0
       else
-        candidate["confidence"] = 0.5
+        user = User.where(locu_str_id: candidate["locu_id"]).first
+        me = User.where(locu_str_id: my_id).first
+        if user and me.categories and user.needs
+          needs = user.needs.split(', ')
+          categories = me.categories.split(', ')
+          if needs.empty?
+            candidate["confidence"] = 0.5
+          else
+            number_of_matches = (needs & categories).length
+            candidate["confidence"] = number_of_matches / needs.length
+          end
+        end
       end
     end
     return candidates.sort { |c1, c2| c2["confidence"] <=> c1["confidence"] }
@@ -19,11 +32,23 @@ class SearchController < ApplicationController
   def findCustomers(candidates)
     my_id = session["current_locu_id"]
     candidates.each do |candidate|
+      candidate["confidence"] = 0.0
       if !Match.where(sender_id: candidate["locu_id"], receiver_id: my_id,
                       accepted: false, selling: false).empty?
         candidate["confidence"] = 1.0
       else
-        candidate["confidence"] = 0.5
+        user = User.where(locu_str_id: candidate["locu_id"]).first
+        me = User.where(locu_str_id: my_id).first
+        if user and me.needs and user.categories
+          needs = me.needs.split(', ')
+          categories = user.categories.split(', ')
+          if needs.empty?
+            candidate["confidence"] = 0.5
+          else
+            number_of_matches = (needs & categories).length
+            candidate["confidence"] = number_of_matches / needs.length
+          end
+        end
       end
     end
     return candidates.sort { |c1, c2| c2["confidence"] <=> c1["confidence"] }
@@ -51,6 +76,7 @@ class SearchController < ApplicationController
     else
       $candidates = findBusinesses(results)
     end
+    byebug
     render 'results'
   end
 

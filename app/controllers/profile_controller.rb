@@ -25,6 +25,7 @@ class ProfileController < ApplicationController
   def submit
     user = User.where(locu_str_id: session["current_locu_id"]).first
     user.update_attribute(:categories, params[:category_update])
+    user.update_attribute(:needs, params[:needs_update])
     redirect_to profile_path, notice: 'Successfully updated profile'
   end
 end
