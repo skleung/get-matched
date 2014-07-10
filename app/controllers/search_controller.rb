@@ -5,7 +5,6 @@ class SearchController < ApplicationController
 
   def findBusinesses(candidates)
     my_id = session["current_locu_id"]
-    byebug
     candidates.each do |candidate|
       candidate["confidence"] = 0.0
       if !Match.where(sender_id: candidate["locu_id"], receiver_id: my_id,
@@ -76,7 +75,6 @@ class SearchController < ApplicationController
     else
       $candidates = findBusinesses(results)
     end
-    byebug
     render 'results'
   end
 

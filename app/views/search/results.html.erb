@@ -27,7 +27,7 @@
           <%=link_to "website", candidate["website_url"]%>
         <% end %>
         <% if candidate["contact"] && candidate["contact"]["email"] %>
-          <%=link_to "mailto:"+candidate["contact"]["email"] %>
+          <%=link_to "Email: "+candidate["contact"]["email"], "mailto:"+candidate["contact"]["email"], style:"color:white;" %>
         <% end %>
         <ul>
           <li><%=candidate["location"]["address1"] %></li>
