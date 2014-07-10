@@ -4,8 +4,8 @@
 #
 #  id          :integer          not null, primary key
 #  content     :string(255)
-#  sender_id   :integer
-#  receiver_id :integer
+#  sender_id   :string(255)
+#  receiver_id :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
 #  read        :boolean
