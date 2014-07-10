@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <h2> Your Matches! </h2>
+  </div>
+  <div class="row">
+    <table class="table">
+      <% @matches.each do |match| %>
+      <tr>
+        <% if match.sender_id == session['current_locu_id'] %>
+          <td><%= link_to match.receiver_id, messages_path(locu_id: match.receiver_id) %></td>
+        <% else %>
+          <td><%= link_to User.get_name(match.sender_id), messages_path(locu_id: match.sender_id) %></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

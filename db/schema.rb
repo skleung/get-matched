@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140710033230) do
+ActiveRecord::Schema.define(version: 20140710040221) do
 
   create_table "matches", force: true do |t|
-    t.integer  "sender_id"
-    t.integer  "receiver_id"
+    t.string   "sender_id"
+    t.string   "receiver_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "accepted"

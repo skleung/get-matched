@@ -1,4 +1,4 @@
-<%= form_for @message do |form| %>
+<%= form_for @message=Message.new() do |form| %>
   <% if @message.errors.any? %>
     <div class = "alert alert-danger" role="alert">
       <div><b>Error(s)</b></div>
@@ -7,12 +7,9 @@
       <% end %> 
     </div> 
   <% end %>
-  <%= form.label :receiver_id %>
-  <span style="color:black">
-    <%= form.collection_select(:receiver_id, User.all, :id, :username) %>
-  </span>
-  <!--<%= form.text_field :receiver_id %>-->
+  <h3><%= 'To: ' + params[:locu_id] %></h3><br>
+  <%= form.hidden_field :receiver_id, { value: params[:locu_id]} %>
   <%= form.label :content %>
-  <%= form.text_area :content %><br>
-  <%= form.submit 'Send message' %>
+  <%= form.text_area :content %><br><br>
+  <%= form.submit 'Send message', :class => 'btn btn-primary' %>
 <% end %>

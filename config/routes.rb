@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post 'welcome/signup' => 'user#signup', as: :signup
   get 'welcome/logout' => 'user#logout', as: :user_logout
   get 'user' => 'user#show', as: :user
+  get 'matches' => 'messages#matches', as: :matches
 
   get 'search' => 'search#index', as: :search
   post 'search/sendMessage' => 'search#sendMessage'

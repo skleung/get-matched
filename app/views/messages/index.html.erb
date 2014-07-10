@@ -1,23 +1,22 @@
-<%= link_to 'Inbox', messages_path  %> |
-  <%= link_to 'Send message', new_message_path  %> |
+<div class="container">
+  <div class="row">
+    <h2><%= link_to 'Your Matches', matches_path %></h2>
+  </div>
+</div>
+
   <div class="container">
   <div class="row" id="inboxMessages">
-    <h2>Inbox</h2>
-    <table class="table">
-      <tr>
-        <td>From</td>
-        <td>To You</td>
-        <td>Date</td>
-        <td>Delete?</td>
-      </tr>
-    </table>
+    <h2>Chat with: <%= params['locu_id'] %></h2>
     <div id="messages">
       <%= render @messages %> 
+    </div>
+    <div>
+      <%= render new_message_path %>
     </div>
   </div>
 </div>
 
-<div class="container">
+<!--<div class="container">
   <div class="row" id="sentMessages">
     <h2>Sent Messages</h2>
     <table class="table">
@@ -32,4 +31,4 @@
       <%= render 'messages/sent' %> 
     </div>
   </div>
-</div>
+</div>-->
