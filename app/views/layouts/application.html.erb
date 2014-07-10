@@ -49,6 +49,7 @@
 </div>
 
 <% unless flash.blank? %>
+<div class="container">
   <% flash.each do |type, message| %>
     <div class="alert <%= bootstrap_class_for(type) %> fade in">
       <button class="close" data-dismiss="alert">×</button>
@@ -56,6 +57,8 @@
     </div>
   <% end %>
 <% end %>
+</div>
+
 <%= yield %>
 
 </body>
