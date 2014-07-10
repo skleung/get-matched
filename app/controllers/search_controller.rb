@@ -13,14 +13,15 @@ class SearchController < ApplicationController
       else
         user = User.where(locu_str_id: candidate["locu_id"]).first
         me = User.where(locu_str_id: my_id).first
-        if user and me.categories and user.needs
-          needs = user.needs.split(', ')
-          categories = me.categories.split(', ')
+        categories = User.get_categories(candidate["locu_id"], candidate["categories"])
+        if user and me.needs and categories
+          needs = me.needs.split(', ')
+          categories = categories.split(', ')
           if needs.empty?
             candidate["confidence"] = 0.5
           else
             number_of_matches = (needs & categories).length
-            candidate["confidence"] = number_of_matches / needs.length
+            candidate["confidence"] = number_of_matches.to_f / needs.length
           end
         end
       end
@@ -38,9 +39,9 @@ class SearchController < ApplicationController
       else
         user = User.where(locu_str_id: candidate["locu_id"]).first
         me = User.where(locu_str_id: my_id).first
-        if user and me.needs and user.categories
-          needs = me.needs.split(', ')
-          categories = user.categories.split(', ')
+        if user and me.categories and user.needs
+          needs = user.needs.split(', ')
+          categories = me.categories.split(', ')
           if needs.empty?
             candidate["confidence"] = 0.5
           else
@@ -75,6 +76,7 @@ class SearchController < ApplicationController
     else
       $candidates = findBusinesses(results)
     end
+    byebug
     render 'results'
   end
 

@@ -26,12 +26,13 @@ class User < ActiveRecord::Base
 
     def get_categories(locu_str_id, categories)
       user = User.where(locu_str_id: locu_str_id).first
-      if user.categories
+      if user and user.categories
         return user.categories
-      else
+      elsif categories
         categories.map! {|c| c['name']}
         return categories.join(', ') 
       end
+      return ''
     end
     def get_needs(locu_str_id)
       user = User.where(locu_str_id: locu_str_id).first
