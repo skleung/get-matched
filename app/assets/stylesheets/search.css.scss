@@ -22,5 +22,16 @@
 .cover-photo{
 	margin: auto;
 	max-height: 600px;
-	
+}
+
+.carousel-caption{
+	position: relative;
+	width: 60%;
+	color: white;
+	background: rgba(111, 111, 111, 0.75);
+	padding: 10px;
+}
+
+.carousel-caption > ul{
+	list-style-type:none;
 }

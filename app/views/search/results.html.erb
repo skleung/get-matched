@@ -7,6 +7,8 @@
     <% else %>
       <div class="item">
     <% end %>
+
+      <!-- image logic -->
       <% if candidate["media"] and candidate["media"]["cover_photo"] %>
         <%= image_tag candidate["media"]["cover_photo"], :class => "cover_photo"%>
       <% else %>
@@ -16,8 +18,29 @@
           <%= image_tag "carousel-placeholder"+(1+rand(4)).to_s+".jpg", :class => "cover-photo"%>
         <% end %>
       <% end %>
+      <!-- end image logic -->
+
       <div class="carousel-caption">
-        <h3><%= candidate["name"] %></h3>
+        <h2><%=candidate["name"] %></h2>
+        <% if candidate["website_url"] %>
+          <%=link_to "website", candidate["website_url"]%>
+        <% end %>
+        <% if candidate["contact"] && candidate["contact"]["email"] %>
+          <%=link_to "mailto:"+candidate["contact"]["email"] %>
+        <% end %>
+        <ul>
+          <li><%=candidate["location"]["address1"] %></li>
+          <% if candidate["location"]["address2"] %>
+            <li><%=candidate["location"]["address2"] %></li>
+          <% end %>
+          <% if candidate["location"]["address3"] %>
+            <li><%=candidate["location"]["address3"] %></li>
+          <% end %>
+          <% if candidate["location"]["locality"] && candidate["location"]["region"] && candidate["location"]["postal_code"] %>
+            <li><%= candidate["location"]["locality"] +", "+candidate["location"]["region"] + " "+candidate["location"]["postal_code"] %></li>
+          <% end %>
+        </ul>
+        <p class="lead"><%= candidate["description"] %></p>
       </div>
     </div>
     <% end %>
