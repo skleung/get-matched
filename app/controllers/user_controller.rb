@@ -23,4 +23,14 @@ class UserController < ApplicationController
       redirect_to root_url, alert: "Couldn't find username #{username}!"
     end
   end
+
+  def logout
+    session['current_locu_id'] = nil
+    session['current_userid'] = nil
+  end
+
+  def show
+    locu_id = params[:locu_id]
+    locu_buisness = searchForBusiness(locu_id)
+  end
 end
