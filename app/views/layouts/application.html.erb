@@ -38,7 +38,7 @@
 
           <% if logged_in?%>
             <li><%= link_to 'Locu id: ' + session['current_locu_id'], "#" %></li>
-            <li><%= link_to "Log out", "#", :id=>"login"%></li>
+            <li><%= link_to "Log out", user_logout_path, :id=>"logout"%></li>
           <% else %>
             <li><%= link_to "Log In", "#", :id=>"login"%></li>
             <li><%= link_to "Sign Up", "#", :id=>"signup"%></li>

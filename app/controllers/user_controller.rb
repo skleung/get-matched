@@ -25,8 +25,8 @@ class UserController < ApplicationController
   end
 
   def logout
-    session['current_locu_id'] = nil
-    session['current_userid'] = nil
+    reset_session
+    redirect_to root_url, notice: 'Successfully logged out'
   end
 
   def show
