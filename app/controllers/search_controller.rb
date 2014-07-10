@@ -55,7 +55,6 @@ class SearchController < ApplicationController
     selling = (params[:type] == 'customer')
 
     matches = Match.where(sender_id: candidate_id, receiver_id: user_id)
-    byebug
     if matches.empty?
       # Create a match if no match already exists
       match = Match.new
@@ -88,7 +87,7 @@ class SearchController < ApplicationController
       message.content = "You've been matched!"
       message.save
 
-      render :js => "window.location.pathname = '#{messages_path}'"        
+      render :js => "window.location = '#{messages_path}?locu_id=#{candidate_id}'"
       return
     end
     $candidates.shift
