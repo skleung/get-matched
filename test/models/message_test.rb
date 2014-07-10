@@ -9,6 +9,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  read        :boolean
+#  match_id    :integer
 #
 
 require 'test_helper'

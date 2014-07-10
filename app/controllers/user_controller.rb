@@ -31,6 +31,6 @@ class UserController < ApplicationController
 
   def show
     locu_id = params[:locu_id]
-    locu_buisness = searchForBusiness(locu_id)
+    @locu_buisness = searchForBusiness(locu_id)
   end
 end
