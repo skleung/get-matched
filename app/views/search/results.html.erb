@@ -10,7 +10,7 @@
 
       <!-- image logic -->
       <% if candidate["media"] and candidate["media"]["cover_photo"] %>
-        <%= image_tag candidate["media"]["cover_photo"], :class => "cover_photo"%>
+        <%= image_tag candidate["media"]["cover_photo"], :class => "cover-photo"%>
       <% else %>
         <% if candidate["categories"] %>
           <%= image_tag seedImage(candidate["categories"][0]["name"], "large"), :class => "cover-photo" %>
