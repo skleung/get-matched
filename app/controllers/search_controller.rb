@@ -12,7 +12,7 @@ class SearchController < ApplicationController
     return candidates
   end
 
-  def searchForNearbyBusinesses(distance=99999999, category=nil)
+  def searchForNearbyBusinesses(distance=1000, category=nil)
     business = searchForBusiness(session["current_locu_id"])
     coordinates = business["location"]["geo"]["coordinates"]
     fields = ["name", "location", "contact", "categories", "media"]
@@ -22,8 +22,7 @@ class SearchController < ApplicationController
           geo: {
             "$in_lat_lng_radius" => [coordinates[1], coordinates[0], distance]
           }
-        },
-        media: {"$present" => true}
+        }
       }
     ]
 
@@ -98,7 +97,8 @@ class SearchController < ApplicationController
   def index
     $candidates = []
   end
-
+  
+  require 'google-search'
   def results
     if $candidates.empty?
       redirect_to search_path

@@ -8,9 +8,18 @@
       <div class="item">
     <% end %>
       <% if candidate["media"] and candidate["media"]["cover_photo"] %>
-        <%= image_tag candidate["media"]["cover_photo"], :class=>"profile-pic"%>
+        <%= image_tag candidate["media"]["cover_photo"]%>
       <% else %>
-        <%= image_tag "carousel-placeholder"+(1+rand(4)).to_s+".jpg", :class=>"profile-pic" %>
+        <% if candidate["categories"] %>
+          <% images = Google::Search::Image.new(:query => candidate["categories"][0]["name"], :image_size => :icon, :image_type => :photo)%>
+          <% if images == nil%>
+            <%= image_tag "carousel-placeholder"+(1+rand(4)).to_s+".jpg" %>
+          <% else %>
+            <%= image_tag images.first.uri %>
+          <% end %>
+        <% else %>
+          <%= image_tag "carousel-placeholder"+(1+rand(4)).to_s+".jpg" %>
+        <% end %>
       <% end %>
       <div class="carousel-caption">
         <h3><%= candidate["name"] %></h3>
