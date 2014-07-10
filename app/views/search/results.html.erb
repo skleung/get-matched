@@ -10,7 +10,7 @@
       <% if candidate["media"] and candidate["media"]["cover_photo"] %>
         <%= image_tag candidate["media"]["cover_photo"] %>
       <% else %>
-        <%= image_tag "http://placekitten.com/g/1500/500" %>
+        <%= image_tag "placeholder.png" %>
       <% end %>
       <div class="carousel-caption">
         <h3><%= candidate["name"] %></h3>
