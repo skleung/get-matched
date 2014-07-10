@@ -23,6 +23,15 @@
               <%= link_to "Home", "/" %>
             </li>
           </ul>
+          <% if Match.total_unread_messages(session['current_locu_id']) != 0 %>
+            <ul class="nav navbar-nav navbar-left" style="text-align: center;margin-left:13%;background-color:#DEBD00;">
+              <li><%= link_to "You have " + Match.total_unread_messages(session['current_locu_id']).to_s + " UNREAD messages", matches_path %></li>
+            </ul>
+          <% else %>
+            <ul class="nav navbar-nav navbar-left" style="text-align: center;margin-left:13%;">
+              <li><%= link_to "You have NO NEW messages", matches_path %></li>
+            </ul>
+          <% end %>
 
           <ul class="nav navbar-nav navbar-right">
 

@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   def index
     @user = User.where(locu_str_id: session['current_locu_id']).first
     @messages = Message.where('receiver_id = :locu_id OR sender_id = :locu_id', locu_id: params["locu_id"]).order("created_at desc")
-    messages_to_update = @messages.where("receiver_id = session['current_locu_id']")
+    messages_to_update = @messages.where("receiver_id = :id", id: session['current_locu_id'])
     messages_to_update.update_all(:read => true)
     respond_to do |format|
       format.html
