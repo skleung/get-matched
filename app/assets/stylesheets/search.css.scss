@@ -1,3 +1,24 @@
 // Place all the styles related to the search controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#reject, #accept{
+	position: absolute;
+	top: 85%;
+	width: auto;
+	height: auto;
+	padding: 10px;
+	font-size: 30px;
+}
+
+#reject{
+	left: 20px;
+}
+
+#accept{
+	right: 20px;
+}
+
+.profile-pic{
+	
+}
