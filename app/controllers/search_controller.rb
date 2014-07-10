@@ -98,14 +98,12 @@ class SearchController < ApplicationController
       match.receiver_id = candidate_id
       match.accepted = false
       match.selling = selling
-      if !match.save
-        flash[:alert] = "Match cannot be made!"
-      else
-        flash[:notice] = "Match made!"
-      end
-    elsif matches.first.selling != selling
+      match.save
+
+    elsif (matches.first.selling != selling) || (!matches.first.selling && !selling)
       # Otherwise, if a match exists, only accept it if
       # I'm buying and she's selling, or I'm selling and she's buying
+      # or if we are both buying
       match = matches.first
       match.accepted = true
       match.save
