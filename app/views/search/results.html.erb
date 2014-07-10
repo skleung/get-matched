@@ -22,6 +22,7 @@
 
       <div class="carousel-caption">
         <h2><%=candidate["name"] %></h2>
+        <h2><%=candidate["locu_id"] %></h2>
         <% if candidate["website_url"] %>
           <%=link_to "website", candidate["website_url"]%>
         <% end %>
