@@ -22,19 +22,6 @@ body {
     padding-top: 0px;
   }
 }
-.bs-component {
-	position: relative;
-}
-.well {
-	min-height: 20px;
-	padding: 19px;
-	margin-bottom: 20px;
-	background-color: #0d747c;
-	border: 1px solid #0a565c;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-}
 
 .centered{
 	text-align: center;

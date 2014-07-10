@@ -7,9 +7,9 @@
       <% end %> 
     </div> 
   <% end %>
-  <h3><%= 'To: ' + User.get_name(params[:locu_id]) %></h3><br>
+  <h3><%= 'To: ' + User.get_name(params[:locu_id]) %></h3><br/>
   <%= form.hidden_field :receiver_id, { value: params[:locu_id]} %>
-  <%= form.label :content %>
-  <%= form.text_area :content %><br><br>
+  <%= form.label :content, 'New Message' %><br/>
+  <%= form.text_area :content, size:'50x4', width:'300px' %><br/><br/>
   <%= form.submit 'Send message', :class => 'btn btn-primary' %>
 <% end %>

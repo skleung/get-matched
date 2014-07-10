@@ -6186,3 +6186,9 @@ button.close {
   background-color: #fff;
   color: #772953;
 }
+.navbar-nav li {
+  margin-top: 5px;
+}
+.container .alert .close {
+  right: 0;
+}
