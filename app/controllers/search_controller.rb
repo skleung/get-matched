@@ -98,7 +98,6 @@ class SearchController < ApplicationController
     $candidates = []
   end
   
-  require 'google-search'
   def results
     if $candidates.empty?
       redirect_to search_path
