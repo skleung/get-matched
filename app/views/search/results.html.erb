@@ -1,4 +1,4 @@
-<div id="matches-carousel" class="carousel slide" data-ride="carousel">
+<div id="matches-carousel" class="carousel slide">
   <div class="carousel-inner">
 
     <% $candidates.each_with_index do |candidate, index| %>
@@ -37,6 +37,10 @@ $(function() {
     $('#matches-carousel').carousel('next');
   });
 
+  $('#matches-carousel').carousel({
+    interval: false,
+    wrap: false
+  });
   $('#matches-carousel').on('slid.bs.carousel', function() {
     if (accepted) {
       $.ajax({url: "accept",
