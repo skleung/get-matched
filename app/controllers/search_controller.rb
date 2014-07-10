@@ -66,7 +66,7 @@ class SearchController < ApplicationController
       if !match.save
         flash[:alert] = "Match cannot be made!"
       else
-        flash[:success] = "Match made!"
+        flash[:notice] = "Match made!"
       end
     elsif matches.first.selling != selling
       # Otherwise, if a match exists, only accept it if
