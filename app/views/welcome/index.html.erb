@@ -1,41 +1,37 @@
-<div class="container">
-    <div class="page-header" >
-      <div class="row" id="welcome">
-        <h1>Get Matched</h1>
-        <p class="lead">A Locu/tinder mash-up for small business owners</p>
+<div id="welcome-cover"></div>
+  <div id="welcome-text">
+    <h1>Get Matched</h1>
+    <p class="lead"><i>A discovery platform for small business owners</i></p>
+  </div>
+  <div class="row" id="form-row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="well bs-component" id="login_wrapper">
+        <%= render :partial => 'login' %>
       </div>
-    
-
-      <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-          <div class="well bs-component" id="login_wrapper">
-            <%= render :partial => 'login' %>
-          </div>
-          <div class="well bs-component" id="signup_wrapper">
-            <%= render :partial => 'signup' %>
-          </div>
-        </div>
-        <div class="col-md-3"></div>
+      <div class="well bs-component" id="signup_wrapper">
+        <%= render :partial => 'signup' %>
       </div>
     </div>
-</div>
+    <div class="col-md-3"></div>
+  </div>
 
 <script>
   $(document).ready(function(){
+    $("#welcome-cover").css({'margin-top': '-10px', 'min-height': $(window).height()+ 'px'});
     $("#login_wrapper").hide();
     $("#signup_wrapper").hide();
     console.log("forms hidden");
   });
   $("#signup").click(function(e){
     e.preventDefault();
-    $("#welcome").hide();
+    $("#welcome-text").hide();
     $("#login_wrapper").hide();
     $("#signup_wrapper").fadeIn();
   });
   $("#login").click(function(e){
     e.preventDefault();
-    $("#welcome").hide();
+    $("#welcome-text").hide();
     $("#signup_wrapper").hide();
     $("#login_wrapper").fadeIn();
   });
