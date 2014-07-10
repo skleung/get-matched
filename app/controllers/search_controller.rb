@@ -4,12 +4,29 @@ class SearchController < ApplicationController
   $candidates = []
 
   def findBusinesses(candidates)
-    # TODO: actually implement this
-    return candidates
+    my_id = session["current_locu_id"]
+    candidates.each do |candidate|
+      if !Match.where(sender_id: candidate["locu_id"], receiver_id: my_id,
+                      accepted: false, selling: true).empty?
+        candidate["confidence"] = 1.0
+      else
+        candidate["confidence"] = 0.5
+      end
+    end
+    return candidates.sort { |c1, c2| c2["confidence"] <=> c1["confidence"] }
   end
 
   def findCustomers(candidates)
-    return candidates
+    my_id = session["current_locu_id"]
+    candidates.each do |candidate|
+      if !Match.where(sender_id: candidate["locu_id"], receiver_id: my_id,
+                      accepted: false, selling: false).empty?
+        candidate["confidence"] = 1.0
+      else
+        candidate["confidence"] = 0.5
+      end
+    end
+    return candidates.sort { |c1, c2| c2["confidence"] <=> c1["confidence"] }
   end
 
   def searchForNearbyBusinesses(distance=1000, category=nil)
@@ -27,21 +44,14 @@ class SearchController < ApplicationController
     ]
 
     results = searchLocu(fields, queries)["venues"]
+    # Filter out my own business
+    results.select! {|result| result["locu_id"] != session["current_locu_id"]}
     if params[:type] == 'customer'
       $candidates = findCustomers(results)
     else
       $candidates = findBusinesses(results)
     end
     render 'results'
-  end
-
-  def sendMessage
-    content = params[:content]
-    sender_id = session["current_locu_id"]
-    receiver_id = $candidates[params[:receiver_id].to_i]["locu_id"]
-    message = Message.create(content: content, sender_id: sender_id, receiver_id: receiver_id)
-    # TODO: redirect to matches
-    redirect_to messages_path
   end
 
   def reject
