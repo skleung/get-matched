@@ -69,3 +69,7 @@ body {
 	background-color: #1DEB26;
 	color: white;
 }
+
+.navbar-nav li {
+  margin-top: 5px;
+}

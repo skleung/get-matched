@@ -1,9 +1,8 @@
-<link href="/assets/messages.css" rel="stylesheet">
 <% #unless Message.where(sender_id: @user.locu_str_id).where(receiver_id: message.sender_id).empty? %>
   <% if message.receiver_id == @user.locu_str_id || message.sender_id == @user.locu_str_id %>
   <table class="table">
     <tr>
-      <td>
+      <td class="narrow">
         <a href="#message_content"><%= User.get_name(message.sender_id) %></a>:
       </td>
       <td>
