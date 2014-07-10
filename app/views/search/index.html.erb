@@ -1,37 +1,9 @@
-
 <div class="container">
   <div class="row">
     <h1>Search for Matches</h1>
 
-    <div id="matches-carousel" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-
-        <% $businesses.each_with_index do |business, index| %>
-        <% if index == 0 %>
-        <div class="item active">
-        <% else %>
-        <div class="item">
-        <% end %>
-          <%= image_tag "http://placekitten.com/g/1500/600" %>
-          <div class="carousel-caption">
-            <h3><%= business["name"] %></h3>
-          </div>
-        </div>
-        <% end %>
-      </div>
-
-      <!-- Controls -->
-      <a class="left carousel-control" href="#matches-carousel" role="button" data-slide="prev">
-        <
-        <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
-      </a>
-      <a class="right carousel-control" href="#matches-carousel" role="button" data-slide="next">
-        >
-        <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
-      </a>
-    </div>
-
-    <%= render :partial => 'contact' %> 
+    <%= button_to "Search for Businesses", search_candidates_path(:type=>"business"), :class=>"btn" %>
+    <%= button_to "Search for Customers", search_candidates_path(:type=>"customer"), :class=>"btn" %>
 
   </div>
 </div>

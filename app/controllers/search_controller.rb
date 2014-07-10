@@ -1,17 +1,21 @@
 class SearchController < ApplicationController
   helper_method :searchForNearbyBusinesses
 
-  $businesses = []
+  $candidates = []
 
-  def rankBusinesses(businesses)
+  def findBusinesses(candidates)
     # TODO: actually implement this
-    return businesses
+    return candidates
   end
 
-  def searchForNearbyBusinesses(locu_id, distance=5000, category=nil)
-    business = searchForBusiness(locu_id)
+  def findCustomers(candidates)
+    return candidates
+  end
+
+  def searchForNearbyBusinesses(distance=5000, category=nil)
+    business = searchForBusiness(session["current_locu_id"])
     coordinates = business["location"]["geo"]["coordinates"]
-    fields = ["name", "location", "contact", "categories"]
+    fields = ["name", "location", "contact", "categories", "media"]
     queries = [
       {
         location: {
@@ -22,22 +26,45 @@ class SearchController < ApplicationController
       }
     ]
 
-    results = searchLocu(fields, queries)
-    return rankBusinesses(results["venues"])
+    results = searchLocu(fields, queries)["venues"]
+    if params[:type] == 'customer'
+      $candidates = findCustomers(results)
+    else
+      $candidates = findBusinesses(results)
+    end
+    render 'results'
   end
 
   def sendMessage
     content = params[:content]
     sender_id = session["current_locu_id"]
-    receiver_id = $businesses[params[:receiver_id].to_i]["locu_id"]
+    receiver_id = $candidates[params[:receiver_id].to_i]["locu_id"]
     message = Message.create(content: content, sender_id: sender_id, receiver_id: receiver_id)
     # TODO: redirect to matches
     redirect_to messages_path
   end
 
-  def index
-    locu_id = session["current_locu_id"]
-    $businesses = searchForNearbyBusinesses(locu_id)
-    @message = Message.new
+  def reject
+    $candidates.shift
   end
+
+  def accept
+    match = Match.new
+    match.sender_id = session["current_locu_id"]
+    match.receiver_id = $candidates[0]["locu_id"]
+    #match.accepted = false
+    byebug
+    # TODO: redirect if match exists, otherwise make match
+  end
+
+  def index
+    $candidates = []
+  end
+
+  def results
+    if $candidates.empty?
+      redirect_to search_path
+    end
+  end
+
 end

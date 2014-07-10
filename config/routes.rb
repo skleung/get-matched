@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   get 'user' => 'user#show', as: :user
 
   get 'search' => 'search#index', as: :search
+  get 'search/results' => 'search#results'
+  post 'search/candidates' => 'search#searchForNearbyBusinesses'
   post 'search/sendMessage' => 'search#sendMessage'
+  post 'search/accept' => 'search#accept'
+  post 'search/reject' => 'search#reject'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

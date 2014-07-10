@@ -1,0 +1,38 @@
+<div id="matches-carousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+
+    <% $candidates.each_with_index do |candidate, index| %>
+    <% if index == 0 %>
+    <div class="item active">
+    <% else %>
+    <div class="item">
+    <% end %>
+      <% if candidate["media"] and candidate["media"]["cover_photo"] %>
+        <%= image_tag candidate["media"]["cover_photo"] %>
+      <% else %>
+        <%= image_tag "http://placekitten.com/g/1500/500" %>
+      <% end %>
+      <div class="carousel-caption">
+        <h3><%= candidate["name"] %></h3>
+      </div>
+    </div>
+    <% end %>
+
+    <button class="btn btn-danger" id="reject">REJECT</button>
+    <button class="btn btn-success" id="accept">ACCEPT</button>
+
+  </div>
+</div>
+
+<script>
+  $('#reject').click(function() {
+    $('#matches-carousel').carousel('next');
+  });
+  $('#accept').click(function() {
+    $.ajax({url: "accept", type: "POST"});
+  });
+
+  $('#matches-carousel').on('slid.bs.carousel', function() {
+    $.ajax({url: "reject", type: "POST"});
+  });
+</script>
