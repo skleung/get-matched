@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'welcome' => 'welcome#index'
   post 'welcome/login' => 'user#login', as: :login
   post 'welcome/signup' => 'user#signup', as: :signup
+  get 'user' => 'user#show', as: :user
 
   get 'search' => 'search#index', as: :search
   post 'search/sendMessage' => 'search#sendMessage'
