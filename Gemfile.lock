@@ -46,6 +46,8 @@ GEM
     debugger-linecache (1.2.0)
     erubis (2.7.0)
     execjs (2.2.1)
+    google-search (1.0.3)
+      json
     hike (1.2.3)
     i18n (0.6.11)
     jbuilder (2.1.2)
@@ -140,6 +142,7 @@ DEPENDENCIES
   annotate
   byebug
   coffee-rails (~> 4.0.0)
+  google-search
   jbuilder (~> 2.0)
   jquery-rails
   pg
