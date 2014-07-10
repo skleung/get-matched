@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
   class << self
     def get_name(locu_str_id)
       if User.where(locu_str_id: locu_str_id).empty?
-        return locu_str_id
+        #return locu_str_id
+        return searchForBusiness(locu_str_id)['name']
       else
         return User.where(locu_str_id: locu_str_id).first.username
       end
