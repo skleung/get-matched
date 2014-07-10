@@ -7,9 +7,9 @@
       <% @matches.each do |match| %>
       <tr>
         <% if match.sender_id == session['current_locu_id'] %>
-          <td><%= link_to match.receiver_id, messages_path(locu_id: match.receiver_id) %></td>
+          <td><%= link_to match.receiver_id, messages_path(locu_id: match.receiver_id) %> <span style="padding-left:3%">Unread Messages: <%= match.unread_messages_for_user(session['current_locu_id']).count %></span></td>
         <% else %>
-          <td><%= link_to User.get_name(match.sender_id), messages_path(locu_id: match.sender_id) %></td>
+          <td><%= link_to User.get_name(match.sender_id), messages_path(locu_id: match.sender_id) %> <span style="padding-left:3%">Unread Messages: <%= match.unread_messages_for_user(session['current_locu_id']).count %></span></td>
         <% end %>
       </tr>
       <% end %>
