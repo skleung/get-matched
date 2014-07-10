@@ -23,7 +23,8 @@ class ProfileController < ApplicationController
   end
 
   def submit
-    byebug
-    value
+    user = User.where(locu_str_id: session["current_locu_id"]).first
+    user.update_attribute(:categories, params[:category_update])
+    redirect_to profile_path, notice: 'Successfully updated profile'
   end
 end
