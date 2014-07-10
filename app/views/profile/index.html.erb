@@ -5,9 +5,7 @@
           Categories Chosen:
         </div>
         <div class="col-md-6">
-          <% @business['categories'].each do |category| %>
-            <%= category['name'] %>, 
-          <% end %>
+          <%= User.get_categories(session['current_locu_id'], @business['categories']) %>
         </div>
       </div>
       <div class="row">

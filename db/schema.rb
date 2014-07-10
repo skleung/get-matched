@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140710040221) do
+ActiveRecord::Schema.define(version: 20140710165548) do
 
   create_table "matches", force: true do |t|
     t.string   "sender_id"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20140710040221) do
     t.string   "locu_str_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "need"
+    t.string   "categories"
   end
 
 end

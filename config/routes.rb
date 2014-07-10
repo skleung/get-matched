@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'messages' => 'messages#index'
   get 'profile' => 'profile#index'
   get 'profile/edit' => 'profile#edit'
+  post 'profile/edit' => 'profile#submit', as: :profile_submit
   resources :messages
   root 'welcome#index'
 

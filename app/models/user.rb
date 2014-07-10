@@ -7,6 +7,8 @@
 #  locu_str_id :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
+#  need        :string(255)
+#  categories  :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -19,6 +21,16 @@ class User < ActiveRecord::Base
         return searchForBusiness(locu_str_id)['name']
       else
         return User.where(locu_str_id: locu_str_id).first.username
+      end
+    end
+
+    def get_categories(locu_str_id, categories)
+      user = User.where(locu_str_id: locu_str_id).first
+      if user.categories
+        return user.categories
+      else
+        categories.map! {|c| c['name']}
+        return categories.join(', ') 
       end
     end
   end
