@@ -1,11 +1,17 @@
 class MessagesController < ApplicationController
   def index
     @user = User.where(locu_str_id: session['current_locu_id']).first
-    @messages = Message.order("created_at desc")
+    @messages = Message.where('receiver_id = :locu_id OR sender_id = :locu_id', locu_id: params["locu_id"]).order("created_at desc")
+    messages_to_update = @messages.where("receiver_id = session['current_locu_id']")
+    messages_to_update.update_all(:read => true)
     respond_to do |format|
       format.html
       format.json { render json: @messages }
     end
+  end
+
+  def matches
+    @matches = Match.where('receiver_id = :locu_id OR sender_id = :locu_id', locu_id: session['current_locu_id']).where(accepted: true)
   end
 
   def show 
@@ -28,10 +34,12 @@ class MessagesController < ApplicationController
     @message = Message.create(params.require(:message).permit(:receiver_id, :content))
     @message.sender_id = session['current_locu_id']
     @message.save
-    
+
     respond_to do |format|
       if @message.save
-        format.html { redirect_to :action => :index, notice: 'Message has been sent.' }
+        flash[:notice] = 'Message has been sent.'
+
+        format.html { redirect_to messages_path(locu_id: @message.receiver_id) }
         format.json { render json: @messages }
       else
         format.html { redirect_to new_message_path(@message) }

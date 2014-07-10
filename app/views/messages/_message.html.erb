@@ -1,18 +1,18 @@
 <link href="/assets/messages.css" rel="stylesheet">
-
-<% if message.receiver_id == @user.locu_str_id %>
-<table class="table">
-  <tr>
-    <td>
-      <%= link_to User.get_name(message.sender_id), message_path(message) %>
-    </td>
-    <td>
-      <%= User.get_name(message.receiver_id) %>
-    </td>
-    <td>
-      <%= message.created_at %>
-    </td>
-    <td><%= link_to 'Delete Message', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-</table>
+<% #unless Message.where(sender_id: @user.locu_str_id).where(receiver_id: message.sender_id).empty? %>
+  <% if message.receiver_id == @user.locu_str_id || message.sender_id == @user.locu_str_id %>
+  <table class="table">
+    <tr>
+      <td>
+        <%= link_to User.get_name(message.sender_id) + ": ", new_message_path(reply_id: message.sender_id) %>
+      </td>
+      <td>
+        <%= message.content %>
+      </td>
+      <td>
+        <%= message.created_at %>
+      </td>
+    </tr>
+  </table>
+  <% #end %>
 <% end %>
