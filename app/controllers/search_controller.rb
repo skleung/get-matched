@@ -76,7 +76,6 @@ class SearchController < ApplicationController
     else
       $candidates = findBusinesses(results)
     end
-    byebug
     render 'results'
   end
 
