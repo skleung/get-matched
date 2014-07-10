@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   get 'messages' => 'messages#index'
+  get 'profile' => 'profile#index'
+  get 'profile/edit' => 'profile#edit'
   resources :messages
   root 'welcome#index'
 

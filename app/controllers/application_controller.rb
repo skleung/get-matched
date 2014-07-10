@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   end
 
   def searchForBusiness(locu_id)
-    fields = ["name", "location", "contact", "media"]
+    fields = ["name", "location", "contact", "media", 'categories']
     queries = [{ locu_id: locu_id }]
     results = searchLocu(fields, queries)
 
