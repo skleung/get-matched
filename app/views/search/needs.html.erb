@@ -1,0 +1,23 @@
+<%= @locu_categories_hash %>
+
+<script>
+	function createOptionsRecursively( data, container ) {
+	    var option = {category: $('<option>'+ data.category.title +'</option>')};
+	    container.push(option);
+	    if (data.children && data.children != []) {
+	        option.children = [];
+	        for (item in data.children)
+	            createOptionsRecursively( data.children[item], option.children );
+	    }
+	}
+
+	var items = [];
+	var url = "https://raw.githubusercontent.com/Yelp/yelp-api/master/category_lists/en/category.json";
+	$.getJSON(url, function(data){
+		$.each(data, function( k, v, s ) {
+		    createOptionsRecursively( data[k], items );
+		});
+		console.log(items);
+	});
+	
+</script>
