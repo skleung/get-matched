@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :logged_in?
+  helper_method :logged_in?, :seedImage
 
   # before_filter :require_login, except: ['welcome', 'user']
 
@@ -46,6 +46,12 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     return session["current_locu_id"]
+  end
+
+  #size should be small, medium, large, xlarge
+  def seedImage(query, size)
+    suckr = ImageSuckr::GoogleSuckr.new
+    suckr.get_image_url({"q" => query, "imgsz" => size, "imgtype" => "photo", "safe" => "active"})
   end
 
   def searchForBusiness(locu_id)
