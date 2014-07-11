@@ -1,11 +1,11 @@
 <div id="matches-carousel" class="carousel slide">
   <div class="carousel-inner">
 
-    <% $candidates.each_with_index do |candidate, index| %>
+    <% @candidates.each_with_index do |candidate, index| %>
     <% if index == 0 %>
-      <div class="item active">
+      <div class="item active" id="<%=candidate['locu_id']%>">
     <% else %>
-      <div class="item">
+      <div class="item" id="<%=candidate['locu_id']%>">
     <% end %>
 
       <!-- image logic -->
@@ -22,11 +22,12 @@
 
       <div class="carousel-caption">
         <h2><%=candidate["name"] %></h2>
+        <h2 style="display: none"><%=candidate["locu_id"] %></h2>
         <% if candidate["website_url"] %>
           <%=link_to "website", candidate["website_url"]%>
         <% end %>
         <% if candidate["contact"] && candidate["contact"]["email"] %>
-          <%=link_to "mailto:"+candidate["contact"]["email"] %>
+          <%=link_to "Email: "+candidate["contact"]["email"], "mailto:"+candidate["contact"]["email"], style:"color:white;" %>
         <% end %>
         <ul>
           <li><%=candidate["location"]["address1"] %></li>
@@ -54,14 +55,26 @@
 <script>
 $(function() {
 
-  var accepted = false;
   $('#reject').click(function() {
-    accepted = false;
+    $('#accept').attr('disabled', true);
+    $('#reject').attr('disabled', true);
     $('#matches-carousel').carousel('next');
   });
+
   $('#accept').click(function() {
-    accepted = true;
-    $('#matches-carousel').carousel('next');
+    $('#accept').attr('disabled', true);
+    $('#reject').attr('disabled', true);
+    var candidate_id = $('#matches-carousel .active').prop('id');
+
+    $.ajax({
+      url: "accept",
+      type: "POST",
+      data: {type: '<%= params[:type] %>',
+             candidate_id: candidate_id},
+      success: function() {
+        $('#matches-carousel').carousel('next');
+      }
+    });
   });
 
   $('#matches-carousel').carousel({
@@ -69,13 +82,8 @@ $(function() {
     wrap: false
   });
   $('#matches-carousel').on('slid.bs.carousel', function() {
-    if (accepted) {
-      $.ajax({url: "accept",
-              data: {type: '<%= params[:type] %>'},
-              type: "POST"});
-    } else {
-      $.ajax({url: "reject", type: "POST"});
-    }
+    $('#accept').removeAttr('disabled');
+    $('#reject').removeAttr('disabled');
   });
 
 });

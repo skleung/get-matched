@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Get Matched</title>
+  <%= favicon_link_tag       '/favicon.ico' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -26,21 +27,23 @@
               <%= link_to "About", about_path %>
             </li>
           </ul>
-          <% if Match.total_unread_messages(session['current_locu_id']) != 0 %>
-            <ul class="nav navbar-nav navbar-left" style="text-align: center;margin-left:13%;background-color:#DEBD00;">
-              <li><%= link_to "You have " + Match.total_unread_messages(session['current_locu_id']).to_s + " UNREAD messages", matches_path %></li>
-            </ul>
-          <% elsif session['current_locu_id'] %>
-            <ul class="nav navbar-nav navbar-left" style="text-align: center;margin-left:13%;">
-              <li><%= link_to "You have NO NEW messages", matches_path %></li>
-            </ul>
+
+          <% if logged_in? %>
+            <% if Match.total_unread_messages(session['current_locu_id']) != 0 %>
+              <ul class="nav navbar-nav navbar-left" style="text-align: center;margin-left:13%;background-color:#DEBD00;">
+                <li><%= link_to "Messages (" + Match.total_unread_messages(session['current_locu_id']).to_s + " unread)", matches_path %></li>
+              </ul>
+            <% else %>
+              <ul class="nav navbar-nav navbar-left" style="text-align: center;margin-left:13%;">
+                <li><%= link_to "Messages (0)", matches_path %></li>
+              </ul>
+            <% end %>
           <% end %>
 
           <ul class="nav navbar-nav navbar-right">
-
           <% if logged_in?%>
             <li><%= link_to "Welcome, " + User.get_name(session['current_locu_id']), profile_path%></li>
-            <li><%= link_to "Messages", matches_path, :id=>"messages"%></li>
+            <li><%= link_to "Profile", profile_path, :id=>"messages"%></li>
             <li><%= link_to "Log out", user_logout_path, :id=>"logout"%></li>
           <% else %>
             <li><%= link_to "Log In", "#", :id=>"login"%></li>
@@ -59,8 +62,8 @@
       <%= message %>
     </div>
   <% end %>
-<% end %>
 </div>
+<% end %>
 
 <%= yield %>
 

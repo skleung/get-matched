@@ -1,20 +1,31 @@
 <%= render 'profile/profile' %>
 
+      <%= form_tag profile_submit_path do %>
       <div class="row">
         <div class="col-md-4">
           Categories To Choose (separated by commas):
         </div>
         <div class="col-md-6">
-        <input type="textarea" name="category_update" action="submit"
-               value="<% @business['categories'].each do |category| %> <%= category['str_id'] %>, <% end %>"/>
+          <input type="textarea" name="category_update"
+                 value="<%= User.get_categories(session['current_locu_id'], @business['categories']) %>"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          My needs (separated by commas):
+        </div>
+        <div class="col-md-6">
+          <input type="textarea" name="needs_update"
+                 value="<%= User.get_needs(session['current_locu_id']) %>"/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-md-offset-4">
-          <%= link_to 'Save', profile_path, :class => 'btn btn-success', :action => :submit %>
+          <%= button_to 'Save', profile_submit_path, :class => 'btn btn-success', :action => :submit %>
           <%= link_to 'Cancel', profile_path, :class => 'btn btn-primary' %>
         </div>
       </div>
+      <% end %>
 
     </div>
   </div>

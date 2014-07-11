@@ -1,16 +1,29 @@
 class SearchController < ApplicationController
   helper_method :searchForNearbyBusinesses
 
-  $candidates = []
+  @candidates = []
 
   def findBusinesses(candidates)
     my_id = session["current_locu_id"]
     candidates.each do |candidate|
+      candidate["confidence"] = 0.0
       if !Match.where(sender_id: candidate["locu_id"], receiver_id: my_id,
                       accepted: false, selling: true).empty?
         candidate["confidence"] = 1.0
       else
-        candidate["confidence"] = 0.5
+        user = User.where(locu_str_id: candidate["locu_id"]).first
+        me = User.where(locu_str_id: my_id).first
+        categories = User.get_categories(candidate["locu_id"], candidate["categories"])
+        if user and me.needs and categories
+          needs = me.needs.split(', ')
+          categories = categories.split(', ')
+          if needs.empty?
+            candidate["confidence"] = 0.5
+          else
+            number_of_matches = (needs & categories).length
+            candidate["confidence"] = number_of_matches.to_f / needs.length
+          end
+        end
       end
     end
     return candidates.sort { |c1, c2| c2["confidence"] <=> c1["confidence"] }
@@ -19,11 +32,23 @@ class SearchController < ApplicationController
   def findCustomers(candidates)
     my_id = session["current_locu_id"]
     candidates.each do |candidate|
+      candidate["confidence"] = 0.0
       if !Match.where(sender_id: candidate["locu_id"], receiver_id: my_id,
                       accepted: false, selling: false).empty?
         candidate["confidence"] = 1.0
       else
-        candidate["confidence"] = 0.5
+        user = User.where(locu_str_id: candidate["locu_id"]).first
+        me = User.where(locu_str_id: my_id).first
+        if user and me.categories and user.needs
+          needs = user.needs.split(', ')
+          categories = me.categories.split(', ')
+          if needs.empty?
+            candidate["confidence"] = 0.5
+          else
+            number_of_matches = (needs & categories).length
+            candidate["confidence"] = number_of_matches / needs.length
+          end
+        end
       end
     end
     return candidates.sort { |c1, c2| c2["confidence"] <=> c1["confidence"] }
@@ -47,21 +72,16 @@ class SearchController < ApplicationController
     # Filter out my own business
     results.select! {|result| result["locu_id"] != session["current_locu_id"]}
     if params[:type] == 'customer'
-      $candidates = findCustomers(results)
+      @candidates = findCustomers(results)
     else
-      $candidates = findBusinesses(results)
+      @candidates = findBusinesses(results)
     end
     render 'results'
   end
 
-  def reject
-    $candidates.shift
-    render :nothing => true
-  end
-
   def accept
-    candidate_id = $candidates[0]["locu_id"]
     user_id = session["current_locu_id"]
+    candidate_id = params[:candidate_id]
     selling = (params[:type] == 'customer')
 
     matches = Match.where(sender_id: candidate_id, receiver_id: user_id)
@@ -72,14 +92,12 @@ class SearchController < ApplicationController
       match.receiver_id = candidate_id
       match.accepted = false
       match.selling = selling
-      if !match.save
-        flash[:alert] = "Match cannot be made!"
-      else
-        flash[:notice] = "Match made!"
-      end
-    elsif matches.first.selling != selling
+      match.save
+
+    elsif (matches.first.selling != selling) || (!matches.first.selling && !selling)
       # Otherwise, if a match exists, only accept it if
       # I'm buying and she's selling, or I'm selling and she's buying
+      # or if we are both buying
       match = matches.first
       match.accepted = true
       match.save
@@ -100,16 +118,15 @@ class SearchController < ApplicationController
       render :js => "window.location = '#{messages_path}?locu_id=#{candidate_id}'"
       return
     end
-    $candidates.shift
     render :nothing => true
   end
 
   def index
-    $candidates = []
+    @candidates = []
   end
   
   def results
-    if $candidates.empty?
+    if @candidates.empty?
       redirect_to search_path
     end
   end

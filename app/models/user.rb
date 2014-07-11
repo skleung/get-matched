@@ -7,6 +7,8 @@
 #  locu_str_id :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
+#  need        :string(255)
+#  categories  :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -20,6 +22,21 @@ class User < ActiveRecord::Base
       else
         return User.where(locu_str_id: locu_str_id).first.username
       end
+    end
+
+    def get_categories(locu_str_id, categories)
+      user = User.where(locu_str_id: locu_str_id).first
+      if user and user.categories
+        return user.categories
+      elsif categories
+        categories.map! {|c| c['name']}
+        return categories.join(', ') 
+      end
+      return ''
+    end
+    def get_needs(locu_str_id)
+      user = User.where(locu_str_id: locu_str_id).first
+      return user.needs
     end
   end
 

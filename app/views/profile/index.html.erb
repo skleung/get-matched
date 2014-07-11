@@ -5,14 +5,21 @@
           Categories Chosen:
         </div>
         <div class="col-md-6">
-          <% @business['categories'].each do |category| %>
-            <%= category['name'] %>, 
-          <% end %>
+          <%= User.get_categories(session['current_locu_id'], @business['categories']) %>
         </div>
       </div>
       <div class="row">
+        <div class="col-md-4">
+          Needs:
+        </div>
+        <div class="col-md-6">
+          <%= User.get_needs(session['current_locu_id']) %>
+        </div>
+
+      </div>
+      <div class="row">
         <div class="col-md-6 col-md-offset-4">
-          <%= link_to 'Edit Categories', profile_edit_path, :class => 'btn btn-primary' %>
+          <%= link_to 'Edit Profile', profile_edit_path, :class => 'btn btn-primary' %>
         </div>
       </div>
 
