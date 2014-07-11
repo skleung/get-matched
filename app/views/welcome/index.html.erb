@@ -1,20 +1,20 @@
 <div id="welcome-cover"></div>
-  <div id="welcome-text">
-    <h1>Get Matched</h1>
-    <p class="lead"><i>A discovery platform for small business owners</i></p>
-  </div>
-  <div class="row" id="form-row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-      <div class="well bs-component" id="login_wrapper">
-        <%= render :partial => 'login' %>
-      </div>
-      <div class="well bs-component" id="signup_wrapper">
-        <%= render :partial => 'signup' %>
-      </div>
+<div class="text-overlay" id="welcome-text">
+  <h1>Get Matched</h1>
+  <p class="lead"><i>A discovery platform for small business owners</i></p>
+</div>
+<div class="row" id="form-row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="well bs-component" id="login_wrapper">
+      <%= render :partial => 'login' %>
     </div>
-    <div class="col-md-3"></div>
+    <div class="well bs-component" id="signup_wrapper">
+      <%= render :partial => 'signup' %>
+    </div>
   </div>
+  <div class="col-md-3"></div>
+</div>
 
 <script>
   $(document).ready(function(){

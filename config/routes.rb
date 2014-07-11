@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   resources :meals
   get 'welcome' => 'welcome#index'
+  get 'welcome/about' => 'welcome#about', as: :about
+
   post 'welcome/login' => 'user#login', as: :login
   post 'welcome/signup' => 'user#signup', as: :signup
   get 'welcome/logout' => 'user#logout', as: :user_logout

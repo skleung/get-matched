@@ -21,17 +21,25 @@
 	width: 100%;
 }
 
-#welcome-text{
-	text-align: center;
+.text-overlay{
 	position: absolute;
 	z-index: 3;
 	color: #fafafa;
-	width: 600px;
-	margin-left: -300px;
 	left: 50%;
 	top: 40%;
 	padding: 15px;
 	background-color: rgba(0, 0, 0, 0.5);
+}
+
+#welcome-text{
+	text-align: center;
+	width: 600px;
+	margin-left: -300px;
+}
+#about-text{
+	top: 14%;
+	width: 860px;
+	margin-left: -430px;
 }
 
 #welcome-cover{
