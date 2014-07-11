@@ -1,7 +1,7 @@
 class SearchController < ApplicationController
   helper_method :searchForNearbyBusinesses
 
-  $candidates = []
+  @candidates = []
 
   def findBusinesses(candidates)
     my_id = session["current_locu_id"]
@@ -72,21 +72,16 @@ class SearchController < ApplicationController
     # Filter out my own business
     results.select! {|result| result["locu_id"] != session["current_locu_id"]}
     if params[:type] == 'customer'
-      $candidates = findCustomers(results)
+      @candidates = findCustomers(results)
     else
-      $candidates = findBusinesses(results)
+      @candidates = findBusinesses(results)
     end
     render 'results'
   end
 
-  def reject
-    $candidates.shift
-    render :nothing => true
-  end
-
   def accept
-    candidate_id = $candidates[0]["locu_id"]
     user_id = session["current_locu_id"]
+    candidate_id = params[:candidate_id]
     selling = (params[:type] == 'customer')
 
     matches = Match.where(sender_id: candidate_id, receiver_id: user_id)
@@ -123,16 +118,15 @@ class SearchController < ApplicationController
       render :js => "window.location = '#{messages_path}?locu_id=#{candidate_id}'"
       return
     end
-    $candidates.shift
     render :nothing => true
   end
 
   def index
-    $candidates = []
+    @candidates = []
   end
   
   def results
-    if $candidates.empty?
+    if @candidates.empty?
       redirect_to search_path
     end
   end
