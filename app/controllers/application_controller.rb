@@ -2,17 +2,14 @@ class ApplicationController < ActionController::Base
 # Prevent CSRF attacks by raising an exception.
 # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-
   helper_method :logged_in?, :seedImage
+  before_filter :require_login, except: [:welcome, :user, :login, :signup]
 
-  # before_filter :require_login, except: ['welcome', 'user']
-
-  # def require_login
-  #   byebug
-  #   unless session["current_locu_id"]
-  #     redirect_to root_url, alert: "you need more swag"
-  #   end
-  # end
+  def require_login
+    unless logged_in?
+      redirect_to root_url, alert: "Sorry, you must be logged in to access that page."
+    end
+  end
 
   class LocuAPIError < RuntimeError
   end
