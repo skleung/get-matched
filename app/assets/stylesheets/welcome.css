@@ -44,8 +44,10 @@
 
 #welcome-cover{
 	z-index: -10;
+  position: absolute;
+  top: 0;
+  left: 0;
 	width: 100%;
-	height: auto;
 	background-image: url('http://frontdoorrestorations.com/users/u5/5901/hub_page/handshake_1920x800.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;

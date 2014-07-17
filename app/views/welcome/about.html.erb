@@ -1,14 +1,14 @@
 <div id="welcome-cover"></div>
 <div class="text-overlay" id="about-text">
   <h3>What is <i>Get Matched</i>?</h3>
-  <p>We're setting small business owners up to succeed by starting conversations on the right foot. Get Matched provides a platform for businesses to browse and find each other by using and extending their profiles. We allow businesses to start conversations founded on mutual interest, clearing up the unnecessary clutter behind business inquiries and jumpstarting the conversation towards a faster partnership </p> 
+  <p>We're setting small business owners up to succeed by starting conversations on the right foot. <i>Get Matched</i> provides a platform for businesses to browse and find each other by using and extending their profiles. We allow businesses to start conversations founded on mutual interest, clearing up the unnecessary clutter behind business inquiries and jumpstarting the conversation towards a faster partnership.</p> 
   <h3>How it works</h3>
-  <p>Small business owners can specify the services they provide and the needs they're looking for after creating or updating their <a href="http://locu.com">Locu</a> profiles. Business owners then can either browse for potential business partners in two veins: </p>
+  <p>Small business owners can specify the services they provide and the needs they're looking for after creating or updating their <a href="http://locu.com">Locu</a> profiles. Business owners then can either browse for potential business partners in two veins:</p>
   <ol>
   	<li>Needing services provided by another business</li>
   	<li>Providing services needed by another business</li>
   </ol>
-  <p>The browsing interface features a smooth and clean interface for either accepting or passing on a potential business partnership, and then only starting a conversation if a match is received</p>
+  <p>The partner search features a smooth and clean interface for either accepting or passing on a potential business partnership, and then only starting a conversation if a match is received.</p>
   <h3>About the Team</h3>
   <p>We're a team of GoDaddy interns that developed this idea for GoDaddy's inaugural Intern Hackathon during the summer of 2014:</p>
   <ul>
@@ -22,8 +22,13 @@
   <p>Check out the <%=link_to "pitch", "/Demo Pitch.pptx"%> that we gave before our product demo!</p>
 </div>
 
-<script>
-  $(document).ready(function(){
-    $("#welcome-cover").css({'margin-top': '-10px', 'min-height': $(window).height()+ 'px'});
-    });
-</script>
+<div class="row" id="form-row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="well bs-component" id="login_wrapper">
+      <%= render :partial => 'login' %>
+    </div>
+    <div class="well bs-component" id="signup_wrapper">
+      <%= render :partial => 'signup' %>
+    </div>
+  </div>
+</div>
