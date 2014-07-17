@@ -5,6 +5,19 @@ class UserController < ApplicationController
       user = user_query.first
       redirect_to root_url, alert: "Sorry, that username is already registered with locu id #{user.locu_str_id}." and return
     end
+
+    # Check that business actually exists.
+    business = searchForBusiness(params[:user][:locu_str_id])
+    if business.nil?
+      redirect_to root_url, alert: "Sorry, locu id #{params[:user][:locu_str_id]} does not exist." and return
+    end
+
+    user_query = User.where(locu_str_id: params[:user][:locu_str_id])
+    if user_query.count != 0
+      user = user_query.first
+      redirect_to root_url, alert: "Sorry, that locu id is already registered with username #{user.username}." and return
+    end
+
     user = User.where(params[:user]).create
     session['current_locu_id'] = user.locu_str_id
     session['current_userid'] = user.id
